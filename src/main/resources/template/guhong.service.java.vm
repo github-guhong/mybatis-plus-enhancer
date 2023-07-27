@@ -1,0 +1,76 @@
+package ${package.Service};
+
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import guhong.play.mybatisplusenhancer.base.PageParam;
+import guhong.play.mybatisplusenhancer.handler.verify.impl.WholeVerifyHandler;
+
+import org.springframework.validation.annotation.Validated;
+import ${package.Entity}.${entity};
+import ${superServiceClassPackage};
+
+/**
+ * <p>
+ * $!{table.comment} 服务类
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+#if(${kotlin})
+interface ${table.serviceName} : ${superServiceClass}<${entity}>
+#else
+@Validated
+public interface ${table.serviceName} extends ${superServiceClass}<${entity}>, WholeVerifyHandler<${entity}, ${table.serviceName}> {
+
+
+
+
+    /**
+     * 添加${table.comment}数据
+     * @param object ${table.comment}数据
+     * @return 失败返回null
+     */
+    public ${entity} add(${entity} object);
+
+
+    /**
+     * 删除${table.comment}信息
+     * @param id 主键
+     * @return 成功返回true，反之false
+     */
+    public boolean remove(String id);
+
+    /**
+     * 更新${table.comment}信息
+     * @param object ${table.comment}数据
+     * @return 成功返回true，反之false
+     */
+    public boolean update(${entity} object);
+
+    /**
+    * 获得${table.comment}列表
+    * @param pageParam 分页参数
+    * @return 返回分页列表
+    */
+    public IPage<${entity}> getList(PageParam<${entity}> pageParam);
+
+    /**
+     * 查询${table.comment}数据是否存在
+     * @param id 主键
+     * @return 存在返回true，反之false
+     */
+    public boolean isExistById(String id);
+
+    /**
+     * 获得单个${table.comment}数据
+     * @param id 主键
+     * @return 返回单个${table.comment}数据
+     */
+    public ${entity} get(String id);
+
+
+
+
+
+}
+#end

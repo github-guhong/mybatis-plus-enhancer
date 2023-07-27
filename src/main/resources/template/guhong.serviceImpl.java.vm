@@ -1,0 +1,140 @@
+package ${package.ServiceImpl};
+
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import guhong.play.mybatisplusenhancer.annotation.core.*;
+import guhong.play.mybatisplusenhancer.base.PageParam;
+import guhong.play.mybatisplusenhancer.constants.ValidatorGroup;
+
+import ${package.Entity}.${entity};
+import ${package.Mapper}.${table.mapperName};
+import ${package.Service}.${table.serviceName};
+import ${superServiceImplClassPackage};
+import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
+import javax.validation.Valid;
+
+
+/**
+ * <p>
+ * $!{table.comment} 服务实现类
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+@Service
+#if(${kotlin})
+open class ${table.serviceImplName} : ${superServiceImplClass}<${table.mapperName}, ${entity}>(), ${table.serviceName} {
+
+}
+#else
+public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.mapperName}, ${entity}> implements ${table.serviceName} {
+
+
+    /**
+     * 添加${table.comment}数据
+     * @param object ${table.comment}数据
+     * @return 失败返回null
+     */
+    @AutomationInsert
+    @Override
+    public ${entity} add(${entity} object) {
+
+		return null;
+    }
+
+
+    /**
+     * 删除${table.comment}信息
+     * @param id 主键
+     * @return 成功返回true，反之false
+     */
+    @AutomationDelete
+    @Override
+    public boolean remove(String id) {
+
+		return false;
+
+	}
+
+    /**
+     * 更新${table.comment}信息
+     * @param object ${table.comment}数据
+     * @return 成功返回true，反之false
+     */
+	@AutomationUpdate
+    @Override
+    public boolean update(${entity} object) {
+
+		return false;
+
+	}
+
+    /**
+    * 获得${table.comment}列表
+    * @param pageParam 分页参数
+    * @return 返回分页列表
+    */
+	@AutomationSelectList
+    @Override
+    public IPage<${entity}> getList(PageParam<${entity}> pageParam) {
+
+		return null;
+
+	}
+
+    /**
+     * 查询${table.comment}数据是否存在
+     * @param id 主键
+     * @return 存在返回true，反之false
+     */
+	@AutomationSelectExist
+    @Override
+    public boolean isExistById(String id) {
+
+		return false;
+
+	}
+
+    /**
+     * 获得单个${table.comment}数据
+     * @param id 主键
+     * @return 返回单个${table.comment}数据
+     */
+	@AutomationSelectSingle
+    @Override
+    public ${entity} get(String id) {
+
+		return null;
+
+	}
+
+	/**
+     * 添加验证
+     *
+     * @param object  数据对象
+     * @param service 对应的service
+     */
+	@Validated(value = {ValidatorGroup.Insert.class})
+    @Override
+    public void insertVerify(@Valid ${entity} object, ${table.serviceName} service) {
+
+    }
+
+
+
+    /**
+     * 更新验证
+     *
+     * @param object  数据对象
+     * @param service 对应的service
+     */
+    @Validated(value = {ValidatorGroup.Update.class})
+    @Override
+    public void updateVerify(@Valid ${entity} object, ${table.serviceName} service) {
+
+    }
+
+
+}
+#end

@@ -1,0 +1,124 @@
+package ${package.Controller};
+
+import guhong.play.mybatisplusenhancer.base.*;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import javax.annotation.Resource;
+import ${package.Service}.${table.serviceName};
+import ${package.Entity}.${entity};
+#if(${swagger2})
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Api;
+#end
+#if(${restControllerStyle})
+import org.springframework.web.bind.annotation.RestController;
+#else
+import org.springframework.stereotype.Controller;
+#end
+#if(${superControllerClassPackage})
+import ${superControllerClassPackage};
+#end
+
+/**
+ * <p>
+ * $!{table.comment} 前端控制器
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+#if(${restControllerStyle})
+@RestController
+#else
+@Controller
+#end
+@RequestMapping("#if(${package.ModuleName})/${package.ModuleName}#end/#if(${controllerMappingHyphenStyle})${controllerMappingHyphen}#else${table.entityPath}#end")
+#if(${kotlin})
+#if(${swagger2})
+@Api(value = "${table.comment}",tags = "${table.comment}")
+#end
+class ${table.controllerName}#if(${superControllerClass}) : ${superControllerClass}()#end
+#else
+#if(${superControllerClass})
+#if(${swagger2})
+@Api(value = "${table.comment}",tags = "${table.comment}")
+#end
+public class ${table.controllerName} extends ${superControllerClass} {
+#else
+#if(${swagger2})
+@Api(value = "${table.comment}", tags = "${table.comment}")
+#end
+public class ${table.controllerName} extends BaseController {
+#end
+
+    @Resource
+    private ${table.serviceName} mainService;
+
+    #if(${swagger2})
+    @ApiOperation(value = "添加【${table.comment}】数据", response = Result.class)
+    #end
+    @PostMapping("/add")
+    public Result add(${entity} entity) {
+
+        ${entity} addResult = mainService.add(entity);
+        return super.successOrError(addResult);
+
+    }
+
+    #if(${swagger2})
+    @ApiOperation(value = "根据id删除【${table.comment}】数据", response = Result.class)
+    #end
+    @DeleteMapping("/remove")
+    public Result remove(@RequestParam(name = "id") String id) {
+
+        return super.successOrError(mainService.remove(id));
+
+    }
+
+
+    #if(${swagger2})
+    @ApiOperation(value = "根据id修改【${table.comment}】数据", response = Result.class)
+    #end
+    @PutMapping("/update")
+    public Result update(${entity} entity) {
+
+        return super.successOrError(mainService.update(entity));
+
+    }
+
+    #if(${swagger2})
+    @ApiOperation(value = "查询【${table.comment}】数据", response = Result.class)
+    #end
+    @GetMapping("/list")
+    public Result list(PageParam<${entity}> pageParam) {
+
+        return super.successOrEmpty(mainService.getList(pageParam));
+
+    }
+
+
+    #if(${swagger2})
+    @ApiOperation(value = "根据id判断【${table.comment}】数据是否存在", response = Result.class)
+    #end
+    @GetMapping("/exist")
+    public Result isExist(@RequestParam(name = "id") String id) {
+
+        return super.success(mainService.isExistById(id));
+
+    }
+
+    #if(${swagger2})
+    @ApiOperation(value = "根据id获得【${table.comment}】数据", response = Result.class)
+    #end
+    @GetMapping("/get")
+    public Result get(@RequestParam(name = "id") String id) {
+
+        return super.successOrEmpty(mainService.get(id));
+
+    }
+}
+
+
+
+#end
